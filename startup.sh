@@ -6,36 +6,44 @@
 # License: GNU General Public License v3.0
 # License URI: https://github.com/wificookbook/pi-mesh/blob/master/LICENSE
 
+iface=$1
+
+echo "Configuring ${iface} as mesh point..."
+
+# get physical address of wlan1 adapter
+addr=$(iw dev ${iface} info | awk '$1=="wiphy"{print $2}')
+echo "physical ${iface} address is phy#${addr}"
+
 # load the module
-echo 'Loading batman-adv kernel module'
+echo "Loading batman-adv kernel module"
 modprobe batman-adv
 
 # configure interface as mesh node
-echo 'Releasing wlan1 interface'
-sudo iw dev wlan1 del
+echo "Releasing ${iface} interface"
+sudo iw dev ${iface} del
 
 # wait for interface to be released properly
 sleep 2
 
 # add wlan1 interface of type 'mesh'
-echo 'Adding wlan1 as mesh interface'
-sudo iw phy phy0 interface add wlan1 type mesh
+echo "Adding ${iface} as mesh interface"
+sudo iw phy phy${addr} interface add ${iface} type mesh
 
 # set MTU value for interface and join pi-mesh
-echo 'Setting MTU value for batman-adv and joining pi-mesh'
-sudo ip link set up mtu 1532 dev wlan1
-sudo iw dev wlan1 mesh join pi-mesh
+echo "Setting MTU value for batman-adv and joining pi-mesh"
+sudo ip link set up mtu 1532 dev ${iface}
+sudo iw dev ${iface} mesh join pi-mesh
 
 # instruct batman-adv to create the bat0 mesh interface
-echo 'Adding wlan1 to batman-adv and bringing it up'
-sudo batctl if add wlan1
+echo "Adding ${iface} to batman-adv and bringing it up"
+sudo batctl if add ${iface}
 sudo ip link set up dev bat0
 
 # assign an IPv4 address to bat0
-echo 'Assigning IPv4 address to bat0'
+echo "Assigning IPv4 address to bat0"
 sudo ip addr add 192.168.0.2/24 dev bat0
 
-echo 'Diagnostic output from batctl...'
+echo "Diagnostic output from batctl..."
 sudo batctl if
 sleep 1
 sudo batctl n
