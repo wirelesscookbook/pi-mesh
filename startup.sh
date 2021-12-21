@@ -19,5 +19,5 @@ sudo batctl if add wlan1
 sudo ip link set up dev bat0
 
 # assign an IPv4 address to bat0
-sudo ip addr add 192.168.0.1/24 dev bat0
+sudo ip addr add 192.168.0.2/24 dev bat0
 
