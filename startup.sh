@@ -6,7 +6,7 @@
 # License: GNU General Public License v3.0
 # License URI: https://github.com/wificookbook/pi-mesh/blob/master/LICENSE
 
-iface=$1
+iface=${1:-wlan1}
 networkid="pi-mesh"
 
 echo "Configuring ${iface} as mesh point..."
