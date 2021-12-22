@@ -12,11 +12,11 @@ echo "Configuring ${iface} as mesh point..."
 
 # get physical address of wlan1 adapter
 addr=$(iw dev ${iface} info | awk '$1=="wiphy"{print $2}')
-echo "physical ${iface} address is phy#${addr}"
+echo "Physical ${iface} address is phy#${addr}"
 
 # load the module
 echo "Loading batman-adv kernel module"
-modprobe batman-adv
+sudo modprobe batman-adv
 
 # configure interface as mesh node
 echo "Releasing ${iface} interface"
@@ -45,5 +45,5 @@ sudo ip addr add 192.168.0.2/24 dev bat0
 
 echo "Diagnostic output from batctl..."
 sudo batctl if
-sleep 1
+sleep 2
 sudo batctl n
