@@ -1,2 +1,0 @@
-ACTION=="add", SUBSYSTEM=="net", DRIVERS=="brcmfmac", NAME="wlan0"
-ACTION=="add", SUBSYSTEM=="net", DRIVERS=="rtl8192cu", NAME="wlan1"
