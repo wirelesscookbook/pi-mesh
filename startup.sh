@@ -7,6 +7,7 @@
 # License URI: https://github.com/wificookbook/pi-mesh/blob/master/LICENSE
 
 iface=$1
+networkid="pi-mesh"
 
 echo "Configuring ${iface} as mesh point..."
 
@@ -30,7 +31,7 @@ echo "Adding ${iface} as mesh interface"
 sudo iw phy phy${addr} interface add ${iface} type mesh
 
 # set MTU value for interface and join pi-mesh
-echo "Setting MTU value for batman-adv and joining pi-mesh"
+echo "Setting MTU value for batman-adv and joining ${networkid}"
 sudo ip link set up mtu 1532 dev ${iface}
 sudo iw dev ${iface} mesh join pi-mesh
 
@@ -38,10 +39,6 @@ sudo iw dev ${iface} mesh join pi-mesh
 echo "Adding ${iface} to batman-adv and bringing it up"
 sudo batctl if add ${iface}
 sudo ip link set up dev bat0
-
-# assign an IPv4 address to bat0
-echo "Assigning IPv4 address to bat0"
-sudo ip addr add 192.168.0.2/24 dev bat0
 
 echo "Diagnostic output from batctl..."
 sudo batctl if
