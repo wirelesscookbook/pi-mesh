@@ -49,7 +49,7 @@ sudo iptables -A FORWARD -i bat0 -o eth0 -j ACCEPT
 echo "Adding ${iface} to batman-adv and bringing it up"
 sudo batctl if add ${iface}
 sudo ip link set up dev bat0
-
+sudo ip addr add 192.168.99.1/24 dev bat0
 echo "Diagnostic output from batctl..."
 sudo batctl if
 sleep 2
