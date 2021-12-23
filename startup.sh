@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Raspberry Pi mesh network startup script
+# Raspberry Pi mesh node startup script
 # Author: @billz <billzimmerman@gmail.com>
 # Author URI: https://github.com/billz/
 # License: GNU General Public License v3.0
@@ -33,9 +33,10 @@ sudo iw phy phy${addr} interface add ${iface} type mesh
 # set MTU value for interface and join pi-mesh
 echo "Setting MTU value for batman-adv and joining ${networkid}"
 sudo ip link set up mtu 1532 dev ${iface}
-sudo iw dev ${iface} mesh join pi-mesh
+sudo iw dev ${iface} mesh join ${networkid}
+sleep 1
 
-# instruct batman-adv to create the bat0 mesh interface
+# tell batman-adv to create the bat0 mesh interface
 echo "Adding ${iface} to batman-adv and bringing it up"
 sudo batctl if add ${iface}
 sudo ip link set up dev bat0
