@@ -10,7 +10,7 @@ import psutil
 import time
 import sys
 
-sz = StatusZero('send', 'receive')
+status = StatusZero('send', 'receive')
 # Default network interface
 interface = 'wlan1'
 
@@ -25,14 +25,14 @@ previous_sent = 0
 previous_recv = 0
 
 def flash_send():
-    sz.send.on()
-    time.sleep(0.01)
-    sz.send.off()
+    status.send.green.on()
+    time.sleep(0.005)
+    status.send.green.off()
 
 def flash_recv():
-    sz.receive.on()
-    time.sleep(0.01)
-    sz.receive.off()
+    status.receive.red.on()
+    time.sleep(0.005)
+    status.receive.red.off()
 
 try:
     while True:
@@ -53,7 +53,7 @@ try:
             previous_sent = current_sent
             previous_recv = current_recv
 
-        time.sleep(0.01)  # Adjust the sleep time as needed
+        #time.sleep(0.01)  # Adjust the sleep time if desired
 
 except KeyboardInterrupt:
     print("Exiting gracefully")
