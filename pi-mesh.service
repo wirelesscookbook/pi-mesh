@@ -1,0 +1,15 @@
+[Unit]
+Description=Executes the pi-mesh startup at boot
+After=network.target
+
+[Service]
+ExecStart=/home/pi/pi-mesh/startup.sh wlan1
+WorkingDirectory=/home/pi/pi-mesh/
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
+
