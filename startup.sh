@@ -4,7 +4,7 @@
 # Author: @billz <billzimmerman@gmail.com>
 # Author URI: https://github.com/billz/
 # License: GNU General Public License v3.0
-# License URI: https://github.com/wificookbook/pi-mesh/blob/master/LICENSE
+# License URI: https://github.com/wirelesscookbook/pi-mesh/blob/master/LICENSE
 
 iface=${1:-wlan1}
 networkid="pi-mesh"
